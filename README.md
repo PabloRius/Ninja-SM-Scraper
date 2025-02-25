@@ -1,1 +1,1 @@
-# Nina SM Scraper
+# Ninja SM Scraper

@@ -12,7 +12,19 @@ def extract_tesco() -> None:
     print("Extracting Tesco items")
     main_urls = \
         ["https://www.tesco.com/groceries/en-GB/shop/\
-fresh-food/all?sortBy=relevance&count=40"]
+fresh-food/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+marketplace/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+bakery/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+frozen-food/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+treats-and-snacks/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+food-cupboard/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+drinks/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+baby-and-toddler/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+health-and-beauty/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+pets/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+household/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+home-and-ents/all?sortBy=relevance&count=40", "https://www.tesco.com/groceries/en-GB/shop/\
+easter/all?sortBy=relevance&count=40"]
 
     urls = []
     for url in main_urls:

@@ -5,31 +5,38 @@ import requests
 from common.const import HEADERS, user_agents_list
 from common.utils import debug
 
-def fetch_one(url:str)->str|None:
+def fetch_one(url: str) -> str | None:
     """Fetch the webpage content."""
-    current_headers = HEADERS
-    current_headers["User-Agent"] = user_agents_list[random.randint(0, len(user_agents_list) - 1)]
-    response = requests.get(url, headers=HEADERS, timeout=500)
-    while response.status_code == 403:
-        print("403 Forbidden")
-        current_headers["User-Agent"] = \
-            user_agents_list[random.randint(0, len(user_agents_list) - 1)]
-        response = requests.get(url, headers=HEADERS, timeout=500)
-    if response.status_code == 200:
-        print("200 OK")
-        return response.text
-    debug(f"Failed to fetch {url} (Status Code: {response.status_code}) \
-          (user-agent: {current_headers['User-Agent']})")
-    return None
+
+    current_headers = HEADERS.copy()
+    current_headers["User-Agent"] = random.choice(user_agents_list)
+
+    try:
+        response = requests.get(url, headers=current_headers, timeout=10)
+
+        while response.status_code == 403:
+            current_headers["User-Agent"] = random.choice(user_agents_list)
+            response = requests.get(url, headers=current_headers, timeout=10)
+
+        if response.status_code == 200:
+            return response.text
+
+        debug(f"❌ Failed: {url} (Status {response.status_code})")
+        return None
+
+    except requests.RequestException as e:
+        debug(f"❗ Request error fetching {url}: {e}")
+        return None
 
 def fetch_many(urls: list[str]) -> list[str | None]:
-    """Fetch each URL and display progress."""
+    """Fetch multiple URLs."""
     pages = []
     total = len(urls)
 
-    for i, url in enumerate(urls, start=1):
+    for index, url in enumerate(urls, start=1):
         page = fetch_one(url)
         pages.append(page)
-        print(f"Fetched {i}/{total} URLs")
+
+        debug(f"📊 Progress - {index}/{total} ({(index/total) * 100:.2f}%)")
 
     return pages
